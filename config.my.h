@@ -64,18 +64,18 @@ static const int nmaster     = 1;    /* number of clients in master area */
 static const int resizehints = 1;    /* 1 means respect size hints in tiled resizals */
 static const int lockfullscreen = 1; /* 1 will force focus on the fullscreen window */
 
-#define LAYOUT_TILE		0
-#define LAYOUT_BOTTOM	1
-#define LAYOUT_FLOAT	2
-#define LAYOUT_MONOCLE	3
-#define LAYOUT_DECK		4
+#define LAYOUT_TILE			0
+#define LAYOUT_BOTTOM		1
+#define LAYOUT_MONOCLE	2 // Needs to be in this position to fullscreen patch to work
+#define LAYOUT_FLOAT		3
+#define LAYOUT_DECK			4
 static const Layout layouts[] = {
 	/* symbol     arrange function */
 	{ "[]=",      tile },    /* first entry is default */
 	{ "TTT",      bstack },
+	{ "[M]",      monocle },
 	/* { "===",      bstackhoriz }, */
 	{ "><>",      NULL },    /* no layout function means floating behavior */
-	{ "[M]",      monocle },
 	{ "[D]",      deck },
 	{ NULL,       NULL },
 };
