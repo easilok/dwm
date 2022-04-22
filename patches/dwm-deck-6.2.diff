@@ -1,31 +1,18 @@
-From cb3cac91db32403bb581aecbc2957b00bb49c898 Mon Sep 17 00:00:00 2001
-From: aleks <aleks.stier@icloud.com>
-Date: Mon, 6 May 2019 16:34:58 +0200
-Subject: [PATCH] Add deck-layout
+From a071b060a1b9b94bcb167b988cf7774ceb870aad Mon Sep 17 00:00:00 2001
+From: Jack Bird <jack.bird@durham.ac.uk>
+Date: Mon, 2 Aug 2021 18:44:05 +0100
+Subject: [PATCH] deck patch works with 6.2
 
-deck is a dwm-layout which is inspired by the TTWM window manager.
-It applies the monocle-layout to the clients in the stack.
-The master-client is still visible. The stacked clients are like
-a deck of cards, hence the name.
-
-The vanilla patch doesn't work properly with patches which add gaps.
-This means that when the deck-layout is activated gaps are omitted.
-To make it work with the tilegap-patch apply the dwm-deck-tilegap patch
-on top of the dwm-deck patch.
-
-The vanilla patch doesn't respect the master-area which is defined by
-the rmaster-patch. To make it work with the rmaster-patch apply the
-dwm-deck-rmaster patch on top of the dwm-deck patch.
 ---
  config.def.h |  2 ++
  dwm.c        | 26 ++++++++++++++++++++++++++
  2 files changed, 28 insertions(+)
 
 diff --git a/config.def.h b/config.def.h
-index 77ff358..55d8a07 100644
+index a2ac963..d865e18 100644
 --- a/config.def.h
 +++ b/config.def.h
-@@ -32,6 +32,7 @@ static const Layout layouts[] = {
+@@ -42,6 +42,7 @@ static const Layout layouts[] = {
  	{ "[]=",      tile },    /* first entry is default */
  	{ "><>",      NULL },    /* no layout function means floating behavior */
  	{ "[M]",      monocle },
@@ -33,19 +20,19 @@ index 77ff358..55d8a07 100644
  };
  
  /* key definitions */
-@@ -66,6 +67,7 @@ static Key keys[] = {
+@@ -77,6 +78,7 @@ static Key keys[] = {
  	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
  	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
  	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
-+	{ MODKEY,                       XK_c,      setlayout,      {.v = &layouts[3]} },
++	{ MODKEY,                       XK_r,      setlayout,      {.v = &layouts[3]} },
  	{ MODKEY,                       XK_space,  setlayout,      {0} },
  	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
  	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
 diff --git a/dwm.c b/dwm.c
-index 1d78655..356ab44 100644
+index 5e4d494..c67ff91 100644
 --- a/dwm.c
 +++ b/dwm.c
-@@ -171,6 +171,7 @@ static void configure(Client *c);
+@@ -157,6 +157,7 @@ static void configure(Client *c);
  static void configurenotify(XEvent *e);
  static void configurerequest(XEvent *e);
  static Monitor *createmon(void);
@@ -53,8 +40,8 @@ index 1d78655..356ab44 100644
  static void destroynotify(XEvent *e);
  static void detach(Client *c);
  static void detachstack(Client *c);
-@@ -669,6 +670,31 @@ destroynotify(XEvent *e) {
- 		unmanage(c, True);
+@@ -655,6 +656,31 @@ destroynotify(XEvent *e)
+ 		unmanage(c, 1);
  }
  
 +void
@@ -83,8 +70,8 @@ index 1d78655..356ab44 100644
 +}
 +
  void
- detach(Client *c) {
- 	Client **tc;
+ detach(Client *c)
+ {
 -- 
-2.21.0
+2.32.0
 
