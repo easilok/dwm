@@ -36,39 +36,39 @@ static const Rule rules[] = {
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
 	 */
-	/* class							instance    title       tags mask		isfloating   monitor */
-	{ "Gimp",							NULL,       NULL,       0,				1,           -1 },
-	{ "Firefox",						NULL,       NULL,       1 << 3,			0,           -1 },
-	{ "Librewolf",						NULL,       NULL,       1 << 3,			0,           -1 },
-	{ "firefox",						NULL,       NULL,       1 << 3,			0,           -1 },
-	{ "Brave-browser",						NULL,       NULL,       1 << 3,			0,           -1 },
-	{ "Tor Browser",					NULL,       NULL,       1 << 3,			1,           -1 },
-	{ "Qutebrowser",					NULL,       NULL,       1 << 3,			0,           -1 },
-	{ "qutebrowser",					NULL,       NULL,       1 << 3,			0,           -1 },
-	{ "speedcrunch",					NULL,		NULL,		0,				1,			 -1 },
-	{ "SpeedCrunch",					NULL,		NULL,		0,				1,			 -1 },
-	{ "TelegramDesktop",				NULL,		NULL,		0,				1,			 -1 },
-	{ "Skype",							NULL,		NULL,		0,				1,			 -1 },
-	{ "Arandr",							NULL,		NULL,		0,				1,			 -1 },
-	{ "Pcmanfm",						NULL,		NULL,		1 << 5,			0,			 -1 },
-	{ "Remmina",						NULL,		NULL,		1 << 7,			0,			 -1 },
-	{ "mpv",							NULL,		NULL,		0,				1,			 -1 },
-	{ "vlc",							NULL,		NULL,		0,				1,			 -1 },
-	{ "Xfce4-appfinder",				NULL,		NULL,		0,				1,			 -1 },
-	{ "Microsoft Teams - Preview",				NULL,		NULL,		1 << 6,				0,			 -1 },
+	/* class							instance    title       tags mask		iscentered, isfloating   monitor */
+	{ "Gimp",							NULL,       NULL,       0,				1,	1,           -1 },
+	{ "Firefox",						NULL,       NULL,       1 << 3,			0, 0,           -1 },
+	{ "Librewolf",						NULL,       NULL,       1 << 3,			0, 0,           -1 },
+	{ "firefox",						NULL,       NULL,       1 << 3,			0, 0,           -1 },
+	{ "Brave-browser",						NULL,       NULL,       1 << 3,			0, 0,           -1 },
+	{ "Tor Browser",					NULL,       NULL,       1 << 3,			1, 1,           -1 },
+	{ "Qutebrowser",					NULL,       NULL,       1 << 3,			0, 0,           -1 },
+	{ "qutebrowser",					NULL,       NULL,       1 << 3,			0, 0,           -1 },
+	{ "speedcrunch",					NULL,		NULL,		0,				1, 1,			 -1 },
+	{ "SpeedCrunch",					NULL,		NULL,		0,				1, 1,			 -1 },
+	{ "TelegramDesktop",				NULL,		NULL,		0,				1, 1,			 -1 },
+	{ "Skype",							NULL,		NULL,		0,				1, 1,			 -1 },
+	{ "Arandr",							NULL,		NULL,		0,				1, 1,			 -1 },
+	{ "Pcmanfm",						NULL,		NULL,		1 << 5,			0, 0,			 -1 },
+	{ "Remmina",						NULL,		NULL,		1 << 7,			0, 0,			 -1 },
+	{ "mpv",							NULL,		NULL,		0,				1, 1,			 -1 },
+	{ "vlc",							NULL,		NULL,		0,				1, 1,			 -1 },
+	{ "Xfce4-appfinder",				NULL,		NULL,		0,				1, 1,			 -1 },
+	{ "Microsoft Teams - Preview",				NULL,		NULL,		1 << 6,				0, 0,			 -1 },
 };
 
 /* layout(s) */
 static const float mfact     = 0.5; /* factor of master area size [0.05..0.95] */
 static const int nmaster     = 1;    /* number of clients in master area */
 static const int resizehints = 1;    /* 1 means respect size hints in tiled resizals */
+static const int lockfullscreen = 1; /* 1 will force focus on the fullscreen window */
 
-#include "layouts.c"
 #define LAYOUT_TILE		0
 #define LAYOUT_BOTTOM	1
 #define LAYOUT_FLOAT	2
 #define LAYOUT_MONOCLE	3
-#define LAYOUT_DECK		5
+#define LAYOUT_DECK		4
 static const Layout layouts[] = {
 	/* symbol     arrange function */
 	{ "[]=",      tile },    /* first entry is default */
@@ -76,7 +76,6 @@ static const Layout layouts[] = {
 	/* { "===",      bstackhoriz }, */
 	{ "><>",      NULL },    /* no layout function means floating behavior */
 	{ "[M]",      monocle },
-	{ "HHH",      grid },
 	{ "[D]",      deck },
 	{ NULL,       NULL },
 };
@@ -98,17 +97,16 @@ static const Layout layouts[] = {
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbgcolor, "-sf", selfgcolor, NULL };
 static const char *termcmd[]  = { TERMINAL, NULL };
-static const char scratchpadname[] = "scratchpad";
-static const char *scratchpadcmd[] = { TERMINAL, "-t", scratchpadname, NULL };
+/* static const char scratchpadname[] = "scratchpad"; */
+/* static const char *scratchpadcmd[] = { TERMINAL, "-t", scratchpadname, NULL }; */
 
+#include "movestack.c"
 static Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,			            XK_d,      spawn,          {.v = dmenucmd } },
 	{ MODKEY,			            XK_Return, spawn,          {.v = termcmd } },
-	{ MODKEY|ControlMask,           XK_n,	   togglescratch,  {.v = scratchpadcmd } },
+	/* { MODKEY|ControlMask,           XK_n,	   togglescratch,  {.v = scratchpadcmd } }, */
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
-	{ MODKEY|ShiftMask,             XK_j,      rotatestack,    {.i = +1 } },
-	{ MODKEY|ShiftMask,             XK_k,      rotatestack,    {.i = -1 } },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_h,      incnmaster,     {.i = +1 } },
@@ -116,17 +114,17 @@ static Key keys[] = {
 	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
 	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
 	{ MODKEY|ShiftMask,             XK_backslash, setmfact,    {.f = 1.50} },
+	{ MODKEY|ShiftMask,             XK_j,      movestack,      {.i = +1 } },
+	{ MODKEY|ShiftMask,             XK_k,      movestack,      {.i = -1 } },
 	{ AltMask,                      XK_Return, zoom,           {0} },
 	{ MODKEY,                       XK_z,		view,		   {0} },
 	{ MODKEY|ShiftMask,             XK_c,      killclient,     {0} },
 	{ MODKEY,			            XK_F1,     setlayout,      {.v = &layouts[LAYOUT_TILE]} },
 	{ MODKEY,			            XK_F2,     setlayout,      {.v = &layouts[LAYOUT_BOTTOM]} },
 	{ MODKEY,						XK_F3,     setlayout,      {.v = &layouts[LAYOUT_MONOCLE]} },
+	{ MODKEY|ShiftMask,             XK_f,      fullscreen,     {0} },
 	{ MODKEY|AltMask,               XK_f,      setlayout,      {.v = &layouts[LAYOUT_FLOAT]} },
-	/* { MODKEY,                       XK_u,      setlayout,      {.v = &layouts[3]} }, */
-	/* { MODKEY,                       XK_o,      setlayout,      {.v = &layouts[4]} }, */
 	{ MODKEY|AltMask,               XK_d,      setlayout,      {.v = &layouts[LAYOUT_DECK]} },
-	/* { MODKEY,                       XK_c,      setlayout,      {.v = &layouts[3]} }, */
 	{ MODKEY|ShiftMask,				XK_space,  cyclelayout,    {.i = -1 } },
 	{ MODKEY,						XK_space,  cyclelayout,    {.i = +1 } },
 	/* { MODKEY,                       XK_z,			 setlayout,      {0} }, */
