@@ -30,33 +30,33 @@ static const char *colors[][3]      = {
 };
 
 /* tagging */
-static const char *tags[] = { "1.", "2.", "3.", "4.", "5.", "6.", "7.", "8.", "9." , "0." };
+static const char *tags[] = { "1.", "2.", "3.", "4.", "5.", "6.", "7.", "8.", "9." , "0." };
 
 static const Rule rules[] = {
 	/* xprop(1):
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
 	 */
-	/* class							instance    title       tags mask		iscentered, isfloating   monitor */
-	{ "Gimp",							NULL,       NULL,       0,				1,	1,           -1 },
-	{ "Firefox",						NULL,       NULL,       1 << 3,			0, 0,           -1 },
-	{ "Librewolf",						NULL,       NULL,       1 << 3,			0, 0,           -1 },
-	{ "firefox",						NULL,       NULL,       1 << 3,			0, 0,           -1 },
-	{ "Brave-browser",						NULL,       NULL,       1 << 3,			0, 0,           -1 },
-	{ "Tor Browser",					NULL,       NULL,       1 << 3,			1, 1,           -1 },
-	{ "Qutebrowser",					NULL,       NULL,       1 << 3,			0, 0,           -1 },
-	{ "qutebrowser",					NULL,       NULL,       1 << 3,			0, 0,           -1 },
-	{ "speedcrunch",					NULL,		NULL,		0,				1, 1,			 -1 },
-	{ "SpeedCrunch",					NULL,		NULL,		0,				1, 1,			 -1 },
-	{ "TelegramDesktop",				NULL,		NULL,		0,				1, 1,			 -1 },
-	{ "Skype",							NULL,		NULL,		0,				1, 1,			 -1 },
-	{ "Arandr",							NULL,		NULL,		0,				1, 1,			 -1 },
-	{ "Pcmanfm",						NULL,		NULL,		1 << 5,			0, 0,			 -1 },
-	{ "Remmina",						NULL,		NULL,		1 << 7,			0, 0,			 -1 },
-	{ "mpv",							NULL,		NULL,		0,				1, 1,			 -1 },
-	{ "vlc",							NULL,		NULL,		0,				1, 1,			 -1 },
-	{ "Xfce4-appfinder",				NULL,		NULL,		0,				1, 1,			 -1 },
-	{ "Microsoft Teams - Preview",				NULL,		NULL,		1 << 6,				0, 0,			 -1 },
+	/* class							            instance    title   tags mask		iscentered, isfloating    monitor */
+	{ "Gimp",							            NULL,       NULL,   0,				  1,          1,            -1 },
+	{ "Firefox",					            NULL,       NULL,   1 << 3,			0,          0,            -1 },
+	{ "Librewolf",				            NULL,       NULL,   1 << 3,			0,          0,            -1 },
+	{ "firefox",					            NULL,       NULL,   1 << 3,			0,          0,            -1 },
+	{ "Brave-browser",		            NULL,       NULL,   1 << 3,			0,          0,            -1 },
+	{ "Tor Browser",			            NULL,       NULL,   1 << 3,			1,          1,            -1 },
+	{ "Qutebrowser",			            NULL,       NULL,   1 << 3,			0,          0,            -1 },
+	{ "qutebrowser",			            NULL,       NULL,   1 << 3,			0,          0,            -1 },
+	{ "speedcrunch",			            NULL,		    NULL,		0,				  1,          1,			      -1 },
+	{ "SpeedCrunch",			            NULL,		    NULL,		0,				  1,          1,			      -1 },
+	{ "TelegramDesktop",	            NULL,		    NULL,		0,				  1,          1,			      -1 },
+	{ "Skype",						            NULL,		    NULL,		0,				  1,          1,			      -1 },
+	{ "Arandr",						            NULL,		    NULL,		0,				  1,          1,			      -1 },
+	{ "Pcmanfm",					            NULL,		    NULL,		1 << 5,			0,          0,			      -1 },
+	{ "Remmina",					            NULL,		    NULL,		1 << 7,			0,          0,			      -1 },
+	{ "mpv",							            NULL,		    NULL,		0,				  1,          1,			      -1 },
+	{ "vlc",							            NULL,		    NULL,		0,				  1,          1,			      -1 },
+	{ "Xfce4-appfinder",	            NULL,		    NULL,		0,				  1,          1,			      -1 },
+	{ "Microsoft Teams - Preview",		NULL,		    NULL,		1 << 4,			0,          0,			      -1 },
 };
 
 /* layout(s) */
