@@ -58,6 +58,7 @@ static const Rule rules[] = {
 	{ "vlc",							            NULL,		    NULL,		0,				  1,          1,			      -1 },
 	{ "Xfce4-appfinder",	            NULL,		    NULL,		0,				  1,          1,			      -1 },
 	{ "Microsoft Teams - Preview",		NULL,		    NULL,		1 << 4,			0,          0,			      -1 },
+	{ "JLinkGUIServerExe",		        NULL,		    NULL,		0,			    1,          1,			      -1 },
 };
 
 /* layout(s) */
